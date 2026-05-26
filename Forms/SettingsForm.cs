@@ -584,86 +584,66 @@ public sealed class SettingsForm : Form
 
     // ── Help text ─────────────────────────────────────────────────────────────
 
-    private const string HelpText = @"QUOTE SCREENSAVER — HELP
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-KEYBOARD SHORTCUTS (while screensaver is running)
-───────────────────────────────────────────────────
-  Space / →      Next quote
-  ←              Previous quote
-  P              Pause / Resume animation
-  R              Reload quotes from all sources
-  A              Toggle author attribution
-  H              Show / Hide this keyboard shortcut overlay
-  Esc            Exit screensaver
-  Any other key  Exit screensaver
-
-USING LOCAL FILES
-──────────────────
-  • Place .txt and/or .csv files in any folder.
-  • Set that folder path in the Sources tab.
-
-  .txt format — one quote per line:
-      The only way to do great work is to love what you do.
-      "Life is short." — Unknown
-      A quote — Author Name
-
-  .csv format — Quote,Author columns (header optional):
-      Quote,Author
-      "Be the change","Mahatma Gandhi"
-      "To be or not to be","Shakespeare"
-
-USING GITHUB
-─────────────
-  • Enter a raw GitHub URL to a single file:
-      https://raw.githubusercontent.com/user/repo/main/quotes.txt
-
-  • Or a GitHub tree URL to a folder (auto-lists all .txt/.csv files):
-      https://github.com/user/repo/tree/main/quotes/
-
-  • Or a GitHub Contents API URL:
-      https://api.github.com/repos/user/repo/contents/quotes/
-
-  • Quotes are cached in:
-      %AppData%\QuoteScreensaver\cache\
-
-  • Use 'Test…' to verify the URL before saving.
-  • Use 'Refresh now' to force re-download.
-
-INSTALLATION GUIDE
-───────────────────
-  1. Build:  dotnet publish -r win-x64 -c Release --self-contained false
-  2. Rename: QuoteScreensaver.exe  →  QuoteScreensaver.scr
-  3. Copy  : QuoteScreensaver.scr  to  C:\Windows\System32\
-  4. Right-click the .scr file → Install
-     OR open Screen Saver Settings and select 'Quote Screensaver'.
-
-  To run manually for testing:
-      QuoteScreensaver.exe /s   (screensaver mode)
-      QuoteScreensaver.exe /c   (settings)
-      QuoteScreensaver.exe /p 0 (preview — use any non-zero HWND in practice)
-
-TROUBLESHOOTING
-────────────────
-  Screensaver doesn't appear:
-    • Ensure the .scr is in System32 and properly installed.
-    • Run QuoteScreensaver.exe /s from a command prompt to see errors.
-
-  No quotes showing:
-    • Built-in quotes are always present as fallback.
-    • Check the Sources tab and ensure the folder path is correct.
-    • For GitHub: use 'Test…' to verify connectivity.
-
-  GitHub quotes not refreshing:
-    • Change Cache Refresh Interval to 'Manual' then click 'Refresh now'.
-    • Or delete files in %AppData%\QuoteScreensaver\cache\.
-
-  High CPU usage:
-    • Reduce Max Quotes on Screen to 1.
-    • Increase Display Duration to reduce transition frequency.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Version 1.0  |  .NET 8 / WinForms  |  Windows 10 & 11
-";
+    private const string HelpText =
+        "QUOTE SCREENSAVER — HELP\n" +
+        "\n" +
+        "═══════════════════════════════════════════════════\n" +
+        "\n" +
+        "KEYBOARD SHORTCUTS (while screensaver is running)\n" +
+        "───────────────────────────────────────────────────\n" +
+        "  Space / Right   Next quote\n" +
+        "  Left Arrow      Previous quote\n" +
+        "  P               Pause / Resume animation\n" +
+        "  R               Reload quotes from all sources\n" +
+        "  A               Toggle author attribution\n" +
+        "  H               Show / Hide this overlay\n" +
+        "  Esc             Exit screensaver\n" +
+        "  Any other key   Exit screensaver\n" +
+        "\n" +
+        "USING LOCAL FILES\n" +
+        "──────────────────\n" +
+        "  Place .txt and/or .csv files in any folder.\n" +
+        "  Set that folder path in the Sources tab.\n" +
+        "\n" +
+        "  .txt format — one quote per line:\n" +
+        "      The only way to do great work...\n" +
+        "      Life is short. — Unknown\n" +
+        "      A longer quote — Author Name\n" +
+        "\n" +
+        "  .csv format — Quote,Author columns:\n" +
+        "      Quote,Author\n" +
+        "      Be the change,Mahatma Gandhi\n" +
+        "      To be or not to be,Shakespeare\n" +
+        "\n" +
+        "USING GITHUB\n" +
+        "─────────────\n" +
+        "  Enter a raw GitHub URL to a file:\n" +
+        "    https://raw.githubusercontent.com/user/repo/main/quotes.txt\n" +
+        "\n" +
+        "  Or a tree URL to a folder:\n" +
+        "    https://github.com/user/repo/tree/main/quotes/\n" +
+        "\n" +
+        "  Quotes are cached in:\n" +
+        "    %AppData%\\QuoteScreensaver\\cache\\\n" +
+        "\n" +
+        "  Use [Test...] to verify the URL before saving.\n" +
+        "  Use [Refresh now] to force re-download.\n" +
+        "\n" +
+        "INSTALLATION\n" +
+        "─────────────\n" +
+        "  1. Rename QuoteScreensaver.exe to QuoteScreensaver.scr\n" +
+        "  2. Copy to C:\\Windows\\System32\\\n" +
+        "  3. Right-click .scr -> Install\n" +
+        "     OR open Screen Saver Settings and select it.\n" +
+        "\n" +
+        "TROUBLESHOOTING\n" +
+        "────────────────\n" +
+        "  Not in settings: ensure .scr is in System32.\n" +
+        "  No quotes: check Sources tab; built-ins always present.\n" +
+        "  GitHub fails: use Test button; check firewall/proxy.\n" +
+        "  Exits immediately: mouse moved >4 px — normal behaviour.\n" +
+        "  High CPU: reduce Max Quotes to 1; increase duration.\n" +
+        "\n" +
+        "═══════════════════════════════════════════════════\n" +
+        "Version 1.0  |  .NET 10 / WinForms  |  Win 10 & 11\n";
 }

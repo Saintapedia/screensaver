@@ -74,8 +74,6 @@ public sealed class AnimationEngine : IDisposable
 
         if (IsPaused) return false;
 
-        bool needsRedraw = false;
-
         // ── Handle switch requests ────────────────────────────────────────────
         if (_switchRequested || _prevRequested)
         {
@@ -104,10 +102,7 @@ public sealed class AnimationEngine : IDisposable
 
         // ── Check if fade-out completed → spawn new group ─────────────────────
         if (AllSpritesHidden() && _sprites.Count > 0)
-        {
             SpawnGroup();
-            needsRedraw = true;
-        }
 
         return true;
     }

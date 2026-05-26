@@ -77,7 +77,7 @@ public sealed class ScreensaverForm : Form
         ShowInTaskbar    = false;
         TopMost          = !_isPreview;
         Text             = "Quote Screensaver";
-        Cursor           = Cursors.None;
+        // Cursor hidden in OnLoad via Win32 ShowCursor(false) — no Cursors.None in WinForms
 
         if (_isPreview)
         {

@@ -50,7 +50,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $ProjectDir = $PSScriptRoot
-$PublishDir = Join-Path $ProjectDir "bin\Release\net8.0-windows\win-x64\publish"
+$PublishDir = Join-Path $ProjectDir "bin\Release\net10.0-windows\win-x64\publish"
 $ExePath    = Join-Path $PublishDir "QuoteScreensaver.exe"
 $ScrPath    = Join-Path $PublishDir "QuoteScreensaver.scr"
 $System32   = "$env:SystemRoot\System32"
@@ -137,14 +137,14 @@ if (-not $dotnetExe) {
         exit 1
     }
 
-    Write-Host "      Running dotnet-install.ps1 (Channel 8.0, SDK)..." -ForegroundColor Gray
+    Write-Host "      Running dotnet-install.ps1 (Channel 10.0, SDK)..." -ForegroundColor Gray
     Write-Host "      This may take a few minutes depending on your connection." -ForegroundColor Gray
     Write-Host ""
 
     try {
-        & $installScriptPath -Channel 8.0 -InstallDir $DotNetInstallDir -Runtime "dotnet" -Verbose:$false
+        & $installScriptPath -Channel 10.0 -InstallDir $DotNetInstallDir -Runtime "dotnet" -Verbose:$false
         # Also install the SDK (not just runtime) so we can build
-        & $installScriptPath -Channel 8.0 -InstallDir $DotNetInstallDir -Verbose:$false
+        & $installScriptPath -Channel 10.0 -InstallDir $DotNetInstallDir -Verbose:$false
     } catch {
         Write-Host ""
         Write-Fail ".NET installation failed: $_"

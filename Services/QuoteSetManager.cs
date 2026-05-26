@@ -113,7 +113,7 @@ public sealed class QuoteSetManager
             if (_history.Count > 50) _history.RemoveAt(0);
             _historyPos = _history.Count - 1;
 
-            return group;
+            return group.ToArray();
         }
     }
 

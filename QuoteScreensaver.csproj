@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>QuoteScreensaver</RootNamespace>
@@ -19,7 +19,7 @@
       ═══════════════════════════════════════════════════════
       SELF-CONTAINED SINGLE-FILE PUBLISH
       ═══════════════════════════════════════════════════════
-      The .NET 8 runtime is bundled INTO the output .exe so
+      The .NET 10 runtime is bundled INTO the output .exe so
       end-users do NOT need .NET installed on their machine.
 
       Build command:
