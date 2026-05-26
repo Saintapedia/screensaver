@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>QuoteScreensaver</RootNamespace>
+    <AssemblyName>QuoteScreensaver</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Product>Quote Screensaver</Product>
+    <Company>Saintapedia</Company>
+    <Description>An elegant screensaver displaying quotes from local files or GitHub. No prerequisites required.</Description>
+    <Copyright>Copyright © 2024 Saintapedia</Copyright>
+
+    <!--
+      ═══════════════════════════════════════════════════════
+      SELF-CONTAINED SINGLE-FILE PUBLISH
+      ═══════════════════════════════════════════════════════
+      The .NET 8 runtime is bundled INTO the output .exe so
+      end-users do NOT need .NET installed on their machine.
+
+      Build command:
+        dotnet publish -r win-x64 -c Release
+
+      Output: a single QuoteScreensaver.exe (~80 MB)
+      Rename to .scr and install — zero prerequisites.
+      ═══════════════════════════════════════════════════════
+    -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <!--
+      Embed native DLLs inside the single file.
+      They are extracted to a temp folder on first run (fast).
+    -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
+    <!--
+      ReadyToRun pre-JIT: faster cold start on the target machine.
+    -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+
+    <!--
+      Do NOT enable trimming for WinForms — reflection-heavy code
+      will break at runtime if trimmed.
+    -->
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <!-- Sample quote files copied to output for reference -->
+  <ItemGroup>
+    <Content Include="Resources\sample_quotes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sample_quotes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
