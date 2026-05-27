@@ -62,11 +62,13 @@ public sealed class QuoteSetManager
         if (_settings.SourceMode != QuoteSourceMode.GitHub)
             LoadLocalQuotes();
 
-        // Fire-and-forget GitHub loading
-        if (_settings.SourceMode != QuoteSourceMode.Local &&
-            !string.IsNullOrWhiteSpace(_settings.GitHubUrl))
+        // Fire-and-forget GitHub loading — fall back to bundled default URL
+        if (_settings.SourceMode != QuoteSourceMode.Local)
         {
-            _ = LoadGitHubAsync();
+            var url = string.IsNullOrWhiteSpace(_settings.GitHubUrl)
+                      ? AppSettings.DefaultGitHubUrl
+                      : _settings.GitHubUrl;
+            _ = LoadGitHubAsync(url);
         }
     }
 
@@ -84,10 +86,12 @@ public sealed class QuoteSetManager
         if (_settings.SourceMode != QuoteSourceMode.GitHub)
             LoadLocalQuotes();
 
-        if (_settings.SourceMode != QuoteSourceMode.Local &&
-            !string.IsNullOrWhiteSpace(_settings.GitHubUrl))
+        if (_settings.SourceMode != QuoteSourceMode.Local)
         {
-            await LoadGitHubAsync(forceRefresh: true);
+            var url = string.IsNullOrWhiteSpace(_settings.GitHubUrl)
+                      ? AppSettings.DefaultGitHubUrl
+                      : _settings.GitHubUrl;
+            await LoadGitHubAsync(url, forceRefresh: true);
         }
     }
 
@@ -156,15 +160,11 @@ public sealed class QuoteSetManager
         foreach (var s in sets) MergeSet(s);
     }
 
-    private async Task LoadGitHubAsync(bool forceRefresh = false)
+    private async Task LoadGitHubAsync(string url, bool forceRefresh = false)
     {
         try
         {
-            var sets = await _githubLoader.LoadAsync(
-                _settings.GitHubUrl,
-                _settings.CacheRefresh,
-                forceRefresh);
-
+            var sets = await _githubLoader.LoadAsync(url, _settings.CacheRefresh, forceRefresh);
             foreach (var s in sets) MergeSet(s);
         }
         catch (Exception ex)

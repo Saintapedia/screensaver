@@ -1,0 +1,36 @@
+# my_quotes_example.txt
+# ─────────────────────────────────────────────────────────────────────────────
+# Example plain-text quote file for Quote Screensaver.
+#
+# FORMAT RULES:
+#   • One quote per line.
+#   • Blank lines and lines starting with # are ignored.
+#   • To add an author, end the line with:  -- Author Name
+#     (space, two dashes, space, then the author)
+#   • Quotes without -- are shown without attribution.
+#   • Save the file as UTF-8 for best results.
+#
+# See docs/QUOTE_FORMATS.md for the full format reference.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Scripture ─────────────────────────────────────────────────────────────────
+
+I can do all things through Christ who strengthens me. -- Philippians 4:13
+Fear not, for I am with you; be not dismayed, for I am your God. -- Isaiah 41:10
+Trust in the Lord with all your heart, and do not lean on your own understanding. -- Proverbs 3:5
+The Lord is my shepherd; I shall not want. -- Psalm 23:1
+For God so loved the world that he gave his only Son. -- John 3:16
+
+# ── Saints ────────────────────────────────────────────────────────────────────
+
+Not all of us can do great things. But we can do small things with great love. -- St. Teresa of Calcutta
+Pray as though everything depended on God. Work as though everything depended on you. -- St. Augustine
+Faith is to believe what you do not see. The reward of faith is to see what you believe. -- St. Augustine
+Joy is a net of love by which you can catch souls. -- St. Teresa of Calcutta
+To have courage for whatever comes in life — everything lies in that. -- St. Teresa of Ávila
+
+# ── Quotes without an author ──────────────────────────────────────────────────
+
+The journey of a thousand miles begins with one step.
+Be the change you wish to see in the world.
+Every day is a fresh start.

@@ -73,15 +73,26 @@ public sealed class AppSettings
         set => TextColorArgb = value.ToArgb();
     }
 
+    // ── Default GitHub source ─────────────────────────────────────────────────
+    /// <summary>
+    /// The default GitHub quote source used when no URL is configured.
+    /// Points to the bundled Faith &amp; Inspiration CSV in this repository.
+    /// </summary>
+    [JsonIgnore]
+    public const string DefaultGitHubUrl =
+        "https://raw.githubusercontent.com/Saintapedia/screensaver/main/quotes/faith_inspiration.csv";
+
     // ── Preset GitHub URLs ────────────────────────────────────────────────────
     /// <summary>Built-in example GitHub raw-file URLs for popular quote sources.</summary>
     [JsonIgnore]
     public static readonly IReadOnlyList<(string Label, string Url)> GitHubPresets = new[]
     {
-        ("tumblr-famous-quotes (txt)",  "https://raw.githubusercontent.com/borisgloger/famous-quotes/master/quotes.txt"),
-        ("awesomequotes4u (csv)",        "https://raw.githubusercontent.com/public-apis/public-apis/master/README.md"),
-        ("Stoic quotes (txt)",           "https://raw.githubusercontent.com/shortthirdman/stoic-quotes/main/stoic-quotes.txt"),
-        ("Motivational Quotes (csv)",    "https://raw.githubusercontent.com/akhiltak/inspirational-quotes/master/Quotes.csv"),
-        ("Custom URL…",                  ""),
+        ("✝  Faith & Inspiration (bundled)",
+            "https://raw.githubusercontent.com/Saintapedia/screensaver/main/quotes/faith_inspiration.csv"),
+        ("Stoic quotes (txt)",
+            "https://raw.githubusercontent.com/shortthirdman/stoic-quotes/main/stoic-quotes.txt"),
+        ("Motivational Quotes (csv)",
+            "https://raw.githubusercontent.com/akhiltak/inspirational-quotes/master/Quotes.csv"),
+        ("Custom URL…", ""),
     };
 }

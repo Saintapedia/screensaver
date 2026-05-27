@@ -1,0 +1,34 @@
+Quote,Author
+# ─────────────────────────────────────────────────────────────────────────────
+# my_quotes_example.csv
+# Example CSV quote file for Quote Screensaver.
+#
+# FORMAT RULES:
+#   • First row must be the header:  Quote,Author
+#   • One quote per row after the header.
+#   • Wrap fields in "double quotes" if they contain commas or line breaks.
+#   • To include a literal " inside a quoted field, write it as "".
+#   • Leave the Author cell empty to show the quote without attribution.
+#   • Lines starting with # are treated as comments and ignored.
+#   • Save the file as UTF-8 for best results.
+#
+# See docs/QUOTE_FORMATS.md for the full format reference.
+# ─────────────────────────────────────────────────────────────────────────────
+# ── Scripture ──────────────────────────────────────────────────────────────
+"I can do all things through Christ who strengthens me.",Philippians 4:13
+"For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.",Jeremiah 29:11
+"Fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you.",Isaiah 41:10
+"Trust in the Lord with all your heart, and do not lean on your own understanding.",Proverbs 3:5
+"The Lord is my shepherd; I shall not want.",Psalm 23:1
+"For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life.",John 3:16
+# ── Saints ─────────────────────────────────────────────────────────────────
+"Not all of us can do great things. But we can do small things with great love.",St. Teresa of Calcutta
+"Pray as though everything depended on God. Work as though everything depended on you.",St. Augustine
+"Faith is to believe what you do not see. The reward of faith is to see what you believe.",St. Augustine
+"Joy is a net of love by which you can catch souls.",St. Teresa of Calcutta
+"To have courage for whatever comes in life — everything lies in that.",St. Teresa of Ávila
+"A humble soul does not trust itself, but places all its confidence in God.",St. Faustina Kowalska
+# ── Quotes showing special CSV cases ──────────────────────────────────────
+"When I was young, I admired clever people. Now that I am old, I admire kind people.",Abraham Joshua Heschel
+"He said to them, ""Come, follow me.""",Matthew 4:19
+Quote with no author at all,
