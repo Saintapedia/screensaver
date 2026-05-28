@@ -79,11 +79,7 @@ public sealed class ScreensaverForm : Form
         Text             = "Quote Screensaver";
         // Cursor hidden in OnLoad via Win32 ShowCursor(false) — no Cursors.None in WinForms
 
-        if (_isPreview)
-        {
-            SetupPreviewLayout();
-        }
-        else if (screen != null)
+        if (!_isPreview && screen != null)
         {
             // Cover the exact physical screen bounds (handles per-monitor DPI)
             Bounds = screen.Bounds;
@@ -95,17 +91,6 @@ public sealed class ScreensaverForm : Form
         _timer.Start();
     }
 
-    // ── Preview layout ────────────────────────────────────────────────────────
-
-    private void SetupPreviewLayout()
-    {
-        if (!GetClientRect(_previewHwnd, out var rc)) return;
-        SetParent(Handle, _previewHwnd);
-        FormBorderStyle = FormBorderStyle.None;
-        Location        = Point.Empty;
-        Size            = new Size(rc.Right - rc.Left, rc.Bottom - rc.Top);
-        TopMost         = false;
-    }
 
     // ── Lifetime ──────────────────────────────────────────────────────────────
 
@@ -113,14 +98,27 @@ public sealed class ScreensaverForm : Form
     {
         base.OnLoad(e);
 
-        // Make this window the topmost on its screen (workaround for taskbar coverage)
-        if (!_isPreview && _isPrimary)
-            SetWindowPos(Handle, HWND_TOPMOST, Left, Top, Width, Height, SWP_SHOWWINDOW);
-
-        // Hide mouse cursor (only once — WinAPI ref-counts ShowCursor)
-        if (_isPrimary && !_isPreview)
+        if (_isPreview)
         {
-            while (ShowCursor(false) >= 0) _cursorHidden++;
+            // Size ourselves to fill the preview pane exactly
+            if (GetClientRect(_previewHwnd, out var rc))
+            {
+                SetWindowPos(Handle, IntPtr.Zero, 0, 0,
+                    rc.Right - rc.Left, rc.Bottom - rc.Top,
+                    SWP_NOZORDER | SWP_SHOWWINDOW);
+            }
+        }
+        else
+        {
+            // Make this window the topmost on its screen (workaround for taskbar coverage)
+            if (_isPrimary)
+                SetWindowPos(Handle, HWND_TOPMOST, Left, Top, Width, Height, SWP_SHOWWINDOW);
+
+            // Hide mouse cursor (only once — WinAPI ref-counts ShowCursor)
+            if (_isPrimary)
+            {
+                while (ShowCursor(false) >= 0) _cursorHidden++;
+            }
         }
 
         _lastMouse = Cursor.Position;
@@ -242,15 +240,26 @@ public sealed class ScreensaverForm : Form
             _engine.Initialize(new RectangleF(0, 0, ClientSize.Width, ClientSize.Height));
     }
 
-    // ── CreateParams: composite + no taskbar ─────────────────────────────────
+    // ── CreateParams: WS_CHILD (preview), WS_EX_TOOLWINDOW (no taskbar) ────────
+    // Must be set before the HWND is created, so CreateParams is the right hook.
+    // Without WS_CHILD the reparented preview form paints to the desktop, not
+    // the tiny pane Windows shows in Screen Saver Settings.
 
     protected override CreateParams CreateParams
     {
         get
         {
             var cp = base.CreateParams;
-            // WS_EX_TOOLWINDOW: no taskbar entry or Alt-Tab appearance
-            cp.ExStyle |= 0x00000080;
+            if (_previewHwnd != 0)
+            {
+                cp.Parent  = _previewHwnd;  // embed in the Windows preview pane
+                cp.Style  |= 0x40000000;    // WS_CHILD — required for child painting
+            }
+            else
+            {
+                // WS_EX_TOOLWINDOW: no taskbar entry or Alt-Tab appearance
+                cp.ExStyle |= 0x00000080;
+            }
             return cp;
         }
     }
